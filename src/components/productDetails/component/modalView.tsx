@@ -9,7 +9,7 @@ function ModalView() {
   const value = useSelector(GetActiveBody);
   return (
     <div className="h-full relative">
-      <div className="flex items-center px-5 absolute w-full top-0 py-6 z-40">
+      <div className="flex items-center px-5 absolute w-full top-0 py-6 z-30">
         <div className="grid grid-cols-2">
           <div className="border w-12 h-12 rounded-full"></div>
           <div className="bg-white w-12 h-12 rounded-full mx-1 flex justify-center items-center">
@@ -17,7 +17,7 @@ function ModalView() {
           </div>
         </div>
       </div>
-      <div className="h-full z-50">
+      <div className="h-full z-20">
         <Canvas shadows camera={{ position: [20, 20, -10], fov: 15 }}>
           <Suspense fallback={null}>
             <color attach="background" args={["#000"]} />

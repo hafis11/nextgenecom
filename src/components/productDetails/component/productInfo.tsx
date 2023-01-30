@@ -3,9 +3,11 @@ import Specification from "./specification";
 
 function ProductInfo() {
   return (
-    <div className="col-span-2 pr-28 py-14">
+    <div className="lg:col-span-2 col-span-3 xl:pr-28 lg:pr-10 md:pr-14 md:py-14 py-6">
       <h5 className="uppercase text-md text-gray-500">Men&apos;s Shoes</h5>
-      <h6 className="text-7xl py-5">Nike Air Force 1</h6>
+      <h6 className="xl:text-7xl py-5 lg:text-4xl md:text-4xl">
+        Nike Air Force 1
+      </h6>
       <h4 className="text-gray-500 font-normal">
         It doesn&apos;t get more legendary than this. Designed to turn heads,
         the Nike Air Force 1 &apos;07 crosses hardwood comfort with off-court

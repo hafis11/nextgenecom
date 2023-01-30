@@ -11,9 +11,9 @@ function ModalView() {
     <div className="h-full relative">
       <div className="flex items-center px-5 absolute w-full top-0 py-6 z-30">
         <div className="grid grid-cols-2">
-          <div className="border w-12 h-12 rounded-full"></div>
-          <div className="bg-white w-12 h-12 rounded-full mx-1 flex justify-center items-center">
-            <h2>{value}</h2>
+          <div className="border w-8 h-8 rounded-full"></div>
+          <div className="bg-white w-8 h-8 rounded-full mx-1 flex justify-center items-center">
+            <h2 className="text-xs">{value}</h2>
           </div>
         </div>
       </div>
@@ -35,7 +35,7 @@ function ModalView() {
             />
             <ShoeModel />
             <OrbitControls
-              enablePan={false}
+              enablePan={true}
               enableZoom={false}
               enableRotate={true}
             />

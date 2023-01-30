@@ -10,7 +10,7 @@ function Gallery() {
     dispatch(setParts(BODY));
   }, []);
   return (
-    <div className="bg-black rounded-3xl relative overflow-hidden">
+    <div className="bg-black rounded-3xl relative overflow-hidden h-full">
       <ColorPicker />
       <ModalView />
     </div>

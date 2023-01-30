@@ -3,7 +3,7 @@ import ScrollCard from "./scroll-card";
 
 function Scroller() {
   return (
-    <div className="py-8 grid grid-flow-row auto-rows-max gap-6">
+    <div className="py-8 lg:grid grid-flow-row auto-rows-max gap-6 hidden">
       {SHOES.map((item, index) => (
         <ScrollCard key={index} data={item} />
       ))}

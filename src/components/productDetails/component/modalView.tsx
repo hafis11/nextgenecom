@@ -7,6 +7,7 @@ import ShoeModel from "./Shoe";
 
 function ModalView() {
   const value = useSelector(GetActiveBody);
+
   return (
     <div className="h-full relative">
       <div className="flex items-center px-5 absolute w-full top-0 py-6 z-30">
@@ -19,28 +20,28 @@ function ModalView() {
       </div>
       <div className="h-full z-20">
         <Canvas shadows camera={{ position: [20, 20, -10], fov: 15 }}>
+          <color attach="background" args={["#000"]} />
+          <ambientLight intensity={0.5} />
+          <pointLight position={[-10, -10, -10]} />
+          <spotLight
+            position={[10, 10, 10]}
+            angle={0.4}
+            penumbra={1}
+            intensity={1}
+            castShadow
+            shadow-mapSize-width={2048}
+            shadow-mapSize-height={2048}
+            shadow-bias={-0.0001}
+          />
           <Suspense fallback={null}>
-            <color attach="background" args={["#000"]} />
-            <ambientLight intensity={0.5} />
-            <pointLight position={[-10, -10, -10]} />
-            <spotLight
-              position={[10, 10, 10]}
-              angle={0.4}
-              penumbra={1}
-              intensity={1}
-              castShadow
-              shadow-mapSize-width={2048}
-              shadow-mapSize-height={2048}
-              shadow-bias={-0.0001}
-            />
             <ShoeModel />
-            <OrbitControls
-              enablePan={true}
-              enableZoom={false}
-              enableRotate={true}
-            />
-            <Environment preset="city" />
+            <Environment files="/assets/shoeModal/royal_esplanade_1k.hdr" />
           </Suspense>
+          <OrbitControls
+            enablePan={true}
+            enableZoom={false}
+            enableRotate={true}
+          />
         </Canvas>
       </div>
       <div className="w-full absolute bottom-0 py-10 flex justify-center items-center">

@@ -3,7 +3,9 @@ import Specification from "./specification";
 
 function ProductInfo() {
   return (
-    <div className="lg:col-span-2 col-span-3 xl:pr-28 lg:pr-10 md:pr-14 md:py-14 py-6">
+    <div
+      className="lg:col-span-2 col-span-3 xl:pr-28 lg:pr-10 md:pr-14 md:py-14 py-6"
+    >
       <h5 className="uppercase text-md text-gray-500">Men&apos;s Shoes</h5>
       <h6 className="xl:text-7xl py-5 lg:text-4xl md:text-4xl">
         Nike Air Force 1

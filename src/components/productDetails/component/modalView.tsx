@@ -1,5 +1,5 @@
 import { GetActiveBody } from "@/src/redux/modal/selectors";
-import { Environment, OrbitControls } from "@react-three/drei";
+import { ContactShadows, Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
@@ -21,21 +21,25 @@ function ModalView() {
       <div className="h-full z-20">
         <Canvas shadows camera={{ position: [20, 20, -10], fov: 15 }}>
           <color attach="background" args={["#000"]} />
-          <ambientLight intensity={0.5} />
-          <pointLight position={[-10, -10, -10]} />
+          <ambientLight intensity={0.3} />
           <spotLight
-            position={[10, 10, 10]}
-            angle={0.4}
+            intensity={0.3}
+            angle={0.1}
             penumbra={1}
-            intensity={1}
-            castShadow
-            shadow-mapSize-width={2048}
-            shadow-mapSize-height={2048}
-            shadow-bias={-0.0001}
+            position={[5, 25, 20]}
           />
           <Suspense fallback={null}>
             <ShoeModel />
             <Environment files="/assets/shoeModal/royal_esplanade_1k.hdr" />
+            <ContactShadows
+              rotation-x={Math.PI / 2}
+              position={[0, -0.8, 0]}
+              opacity={0.25}
+              width={10}
+              height={10}
+              blur={2}
+              far={1}
+            />
           </Suspense>
           <OrbitControls
             enablePan={true}

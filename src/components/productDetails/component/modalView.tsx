@@ -2,14 +2,16 @@ import { GetActiveBody } from "@/src/redux/modal/selectors";
 import { Environment, OrbitControls } from "@react-three/drei";
 import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
+import dynamic from "next/dynamic";
 import { useSelector } from "react-redux";
-import ShoeModel from "./Shoe";
+
+const ShoeModel = dynamic(() => import("./Shoe"), { suspense: true });
 
 function ModalView() {
   const value = useSelector(GetActiveBody);
   return (
     <div className="h-full relative">
-      <div className="flex items-center px-5 absolute w-full top-0 py-6 z-40">
+      <div className="flex items-center px-5 absolute w-full top-0 py-6 z-50">
         <div className="grid grid-cols-2">
           <div className="border w-12 h-12 rounded-full"></div>
           <div className="bg-white w-12 h-12 rounded-full mx-1 flex justify-center items-center">

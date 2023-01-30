@@ -9,7 +9,7 @@ import { useSelector, useDispatch } from "react-redux";
 import { getbody } from "../../../redux/modal/selectors";
 import { setActive } from "../../../redux/modal/slice";
 
-function ShoeModel(props) {
+function ShoeModel() {
   const { nodes, materials } = useGLTF("/assets/shoeModal/shoe.glb");
   const value = useSelector(getbody);
   const dispatch = useDispatch();
@@ -25,7 +25,6 @@ function ShoeModel(props) {
   //
   return (
     <group
-      {...props}
       dispose={null}
       scale={2.7}
       onPointerOver={(e) => (e.stopPropagation(), set(e.object.material.name))}

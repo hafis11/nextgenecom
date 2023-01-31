@@ -4,9 +4,11 @@ import { Canvas } from "@react-three/fiber";
 import React, { Suspense } from "react";
 import { useSelector } from "react-redux";
 import ShoeModel from "./Shoe";
+// import { useMediaQuery } from "react-responsive";
 
 function ModalView() {
   const value = useSelector(GetActiveBody);
+  // const isTabletOrMobile = useMediaQuery({ query: "(max-width: 768px)" });
 
   return (
     <div className="h-full relative">
@@ -42,7 +44,7 @@ function ModalView() {
             />
           </Suspense>
           <OrbitControls
-            enablePan={true}
+            enablePan={false}
             enableZoom={false}
             enableRotate={true}
           />

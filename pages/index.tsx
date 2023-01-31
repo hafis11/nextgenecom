@@ -5,4 +5,4 @@ const Index = () => {
   return <ProductDetails />;
 };
 
-export default Index;
+export default Index; 

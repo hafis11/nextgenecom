@@ -1,11 +1,10 @@
 import { GetActiveBody, getbody } from "@/src/redux/modal/selectors";
 import { setParts } from "@/src/redux/modal/slice";
-import React, { useState } from "react";
+import React from "react";
 import { HexColorPicker } from "react-colorful";
 import { useDispatch, useSelector } from "react-redux";
 
 function ColorPicker() {
-  const [color] = useState("#aabbcc");
   const value = useSelector(GetActiveBody);
   const body = useSelector(getbody);
   const dispatch = useDispatch();
@@ -24,9 +23,8 @@ function ColorPicker() {
   return (
     <div>
       {value ? (
-        <div className="absolute m-8 right-0 z-50">
+        <div className="absolute m-8 right-0 z-50 picker">
           <HexColorPicker
-            className="picker"
             color={body[value]}
             onChange={handlePick}
           />

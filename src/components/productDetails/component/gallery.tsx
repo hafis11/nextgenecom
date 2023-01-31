@@ -9,6 +9,7 @@ function Gallery() {
   useEffect(() => {
     dispatch(setParts(BODY));
   }, []);
+  // 
   return (
     <div className="bg-black rounded-3xl relative overflow-hidden h-full">
       <ColorPicker />

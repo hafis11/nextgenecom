@@ -1,11 +1,12 @@
-import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
-import '@tensorflow-models/face-detection';
-import '@tensorflow/tfjs-backend-webgl';
+import * as tfjsWasm from "@tensorflow/tfjs-backend-wasm";
+import "@tensorflow-models/face-detection";
+import "@tensorflow/tfjs-backend-webgl";
 
 tfjsWasm.setWasmPaths(
-  `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm`);
+  `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm`
+);
 
-async function SetupDetector(): Promise<any> {
+async function FacemeshDetector(): Promise<any> {
   const faceLandmarksDetection = await import(
     "@tensorflow-models/face-landmarks-detection"
   );
@@ -20,4 +21,18 @@ async function SetupDetector(): Promise<any> {
   return detector;
 }
 
-export default SetupDetector;
+async function handDetector(): Promise<any> {
+  const handPoseDetection = await import(
+    "@tensorflow-models/hand-pose-detection"
+  );
+  const hands = await import("@mediapipe/hands");
+  const model = handPoseDetection.SupportedModels.MediaPipeHands;
+  const detector = await handPoseDetection.createDetector(model, {
+    runtime: "mediapipe", // or 'tfjs',
+    solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/hands@${hands.VERSION}`,
+    modelType: "full",
+  });
+  return detector;
+}
+
+export { FacemeshDetector, handDetector };

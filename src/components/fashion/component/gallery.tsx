@@ -1,20 +1,30 @@
 import React, { useEffect, useRef } from "react";
-import { drawMesh } from "../../../utils/triangulation";
-import SetupDetector from "@/src/utils/setupDetector";
+import { drawHand, drawMesh } from "../../../utils/triangulation";
+import { FacemeshDetector, handDetector } from "@/src/utils/setupDetector";
 import { setupVideo, Webcamera } from "./webcam";
+// import * as faceLandmarksDetection from "@tensorflow-models/face-landmarks-detection";
 
 interface Props {}
 
 const Gallery: React.FC<Props> = () => {
-  const detectorRef = useRef<ReturnType<typeof SetupDetector> | null>(null);
+  const facemeshdetectorRef = useRef<ReturnType<
+    typeof FacemeshDetector
+  > | null>(null);
+  const handdetectorRef = useRef<ReturnType<typeof handDetector> | null>(null);
   const videoRef = useRef<HTMLVideoElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // const contours = faceLandmarksDetection.util.getKeypointIndexByContour(
+  //   faceLandmarksDetection.SupportedModels.MediaPipeFaceMesh
+  // );
+
+  // console.log("contours :", contours);
 
   useEffect(() => {
     (async () => {
       try {
         videoRef.current = await setupVideo();
-        detectorRef.current = await SetupDetector();
+        facemeshdetectorRef.current = await FacemeshDetector();
+        handdetectorRef.current = await handDetector();
       } catch (e: any) {
         console.error("gallery.js => function initialize :", e.message);
       }
@@ -24,9 +34,16 @@ const Gallery: React.FC<Props> = () => {
   useEffect(() => {
     const intervalId = setInterval(async () => {
       try {
-        const faces = await (detectorRef.current as any)?.estimateFaces(
+        const faces = await (facemeshdetectorRef.current as any)?.estimateFaces(
           videoRef.current
         );
+
+        const hands = await (handdetectorRef.current as any)?.estimateHands(
+          videoRef.current
+        );
+
+        // console.log("hands :", hands);
+
         const c = canvasRef.current as HTMLCanvasElement;
         const ctx = c.getContext("2d");
 
@@ -48,6 +65,7 @@ const Gallery: React.FC<Props> = () => {
             canvasRef.current.width,
             canvasRef.current.height
           );
+          // drawHand(hands, ctx);
           drawMesh(faces, ctx);
         }
       } catch (e: any) {

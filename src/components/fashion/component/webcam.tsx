@@ -1,46 +1,25 @@
-import React, { useEffect } from "react";
-import Webcam from "react-webcam";
+import React from "react";
 
-async function setupVideo(video: HTMLMediaElement): Promise<void> {
+async function setupVideo(): Promise<HTMLVideoElement> {
+  const video = document.getElementById("video") as HTMLVideoElement;
   const stream = await window.navigator.mediaDevices.getUserMedia({
     video: true,
   });
 
   video.srcObject = stream;
-  await new Promise((resolve: any) => {
-    video.onloadedmetadata = () => {
-      resolve();
-    };
+  await new Promise((resolve) => {
+    video.onloadedmetadata = resolve;
   });
   video.play();
 
-  if (video instanceof HTMLVideoElement) {
-    const videoElement = video as HTMLVideoElement;
-    videoElement.width = videoElement.videoWidth;
-    videoElement.height = videoElement.videoHeight;
-  }
+  video.width = video.videoWidth;
+  video.height = video.videoHeight;
+
+  return video;
 }
 
-interface Props {
-  videoRef: React.RefObject<HTMLVideoElement>;
-}
-
-const Webcamera = ({ videoRef }: Props) => {
-  useEffect(() => {
-    async function initialize() {
-      if (videoRef?.current) {
-        await setupVideo(videoRef.current);
-      }
-    }
-
-    initialize();
-  }, []);
-
-  return (
-    <div className="absolute">
-      <video width="300" height="200" autoPlay muted ref={videoRef} />
-    </div>
-  );
+const Webcamera: React.FC = () => {
+  return <video width="300" height="200" autoPlay muted id="video" />;
 };
 
-export default Webcamera;
+export { Webcamera, setupVideo };

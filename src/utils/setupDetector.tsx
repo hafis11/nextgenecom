@@ -1,4 +1,9 @@
-import React from "react";
+import * as tfjsWasm from '@tensorflow/tfjs-backend-wasm';
+import '@tensorflow-models/face-detection';
+import '@tensorflow/tfjs-backend-webgl';
+
+tfjsWasm.setWasmPaths(
+  `https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-wasm`);
 
 async function SetupDetector(): Promise<any> {
   const faceLandmarksDetection = await import(
@@ -9,7 +14,7 @@ async function SetupDetector(): Promise<any> {
   const detector = await faceLandmarksDetection.createDetector(model, {
     runtime: "mediapipe",
     solutionPath: `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh@${faceMesh.VERSION}`,
-    maxFaces: 2,
+    maxFaces: 1,
     refineLandmarks: true,
   });
   return detector;

@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import Webcam from "react-webcam";
 
 async function setupVideo(video: HTMLMediaElement): Promise<void> {
   const stream = await window.navigator.mediaDevices.getUserMedia({
@@ -24,7 +25,7 @@ interface Props {
   videoRef: React.RefObject<HTMLVideoElement>;
 }
 
-const Webcam = ({ videoRef }: Props) => {
+const Webcamera = ({ videoRef }: Props) => {
   useEffect(() => {
     async function initialize() {
       if (videoRef?.current) {
@@ -42,4 +43,4 @@ const Webcam = ({ videoRef }: Props) => {
   );
 };
 
-export default Webcam;
+export default Webcamera;

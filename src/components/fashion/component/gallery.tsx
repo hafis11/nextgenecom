@@ -1,8 +1,8 @@
 import React, { useEffect, useRef } from "react";
 import "@tensorflow/tfjs-backend-webgl";
-import Webcam from "./webcam";
 import { drawMesh } from "../../../utils/triangulation";
 import SetupDetector from "@/src/utils/setupDetector";
+import Webcamera from "./webcam";
 
 interface Props {}
 
@@ -22,8 +22,41 @@ const Gallery: React.FC<Props> = () => {
     initialize();
   }, []);
 
-  const runFacemesh = async () => {
-    setInterval(async () => {
+  // const runFacemesh = async () => {
+  //   setInterval(async () => {
+  //     try {
+  //       const faces = await (
+  //         await detectorRef.current
+  //       )?.estimateFaces(videoRef.current);
+
+  //       // console.log("videoRef :", faces);
+  //       var c = canvasRef?.current as HTMLCanvasElement;
+  //       var ctx = c.getContext("2d");
+  //       if (ctx && videoRef?.current && canvasRef?.current && faces) {
+  //         // Get Video Properties
+  //         const video = videoRef.current;
+  //         const videoWidth = video.videoWidth;
+  //         const videoHeight = video.videoHeight;
+  //         // Set video width
+  //         video.width = videoWidth;
+  //         video.height = videoHeight;
+
+  //         // Set canvas width
+  //         canvasRef.current.width = videoWidth;
+  //         canvasRef.current.height = videoHeight;
+
+  //         console.log("faces :", faces);
+  //         drawMesh(faces, ctx);
+  //       }
+  //     } catch (e: any) {
+  //       console.log("gallery.js => function runFacemesh :", e.message);
+  //     }
+  //   }, 10);
+  // };
+
+
+  useEffect(() => {
+    const drawFace = async () =>{
       try {
         const faces = await (
           await detectorRef.current
@@ -32,7 +65,7 @@ const Gallery: React.FC<Props> = () => {
         // console.log("videoRef :", faces);
         var c = canvasRef?.current as HTMLCanvasElement;
         var ctx = c.getContext("2d");
-        if (ctx && videoRef?.current && canvasRef?.current) {
+        if (ctx && videoRef?.current && canvasRef?.current && faces) {
           // Get Video Properties
           const video = videoRef.current;
           const videoWidth = video.videoWidth;
@@ -45,34 +78,27 @@ const Gallery: React.FC<Props> = () => {
           canvasRef.current.width = videoWidth;
           canvasRef.current.height = videoHeight;
 
-          console.log("faces :", faces);
+          // console.log("faces :", faces);
           drawMesh(faces, ctx);
         }
+        requestAnimationFrame(drawFace);
       } catch (e: any) {
         console.log("gallery.js => function runFacemesh :", e.message);
       }
-    }, 10);
-  };
+    }
 
-  useEffect(() => {
-    runFacemesh();
-  }, []);
+    drawFace();
+  },[])
+
+  // useEffect(() => {
+  //   runFacemesh();
+  // }, []);
 
   return (
     <div className="rounded-3xl relative overflow-hidden h-full bg-black flex justify-center items-center">
-      <Webcam videoRef={videoRef} />
+      <Webcamera videoRef={videoRef} />
       <canvas
-        style={{
-          position: "absolute",
-          marginLeft: "auto",
-          marginRight: "auto",
-          backgroundColor: "#000",
-          left: 0,
-          right: 0,
-          textAlign: "center",
-          width: 640,
-          height: 480,
-        }}
+        className="absolute ml-auto mr-auto left-0 right-0"
         ref={canvasRef}
       />
     </div>
